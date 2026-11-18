@@ -1,0 +1,62 @@
+[
+  {
+    "id": "mary-shelley",
+    "name": "Mary Shelley",
+    "born": 1797,
+    "died": 1851,
+    "country": "England",
+    "bio": "TODO: 2–3 sentences written by the students.",
+    "portrait": "images/mary-shelley.jpg",
+    "portraitSource": "Richard Rothwell, oil portrait (public domain)"
+  },
+  {
+    "id": "daniel-keyes",
+    "name": "Daniel Keyes",
+    "born": 1927,
+    "died": 2014,
+    "country": "United States",
+    "bio": "TODO: 2–3 sentences written by the students.",
+    "portrait": "",
+    "portraitSource": ""
+  },
+  {
+    "id": "edgar-allan-poe",
+    "name": "Edgar Allan Poe",
+    "born": 1809,
+    "died": 1849,
+    "country": "United States",
+    "bio": "TODO: 2–3 sentences written by the students.",
+    "portrait": "",
+    "portraitSource": "TODO: students add a public-domain portrait and write its source here."
+  },
+  {
+    "id": "robert-louis-stevenson",
+    "name": "Robert Louis Stevenson",
+    "born": 1850,
+    "died": 1894,
+    "country": "Scotland",
+    "bio": "TODO: 2–3 sentences written by the students.",
+    "portrait": "",
+    "portraitSource": ""
+  },
+  {
+    "id": "hg-wells",
+    "name": "H. G. Wells",
+    "born": 1866,
+    "died": 1946,
+    "country": "England",
+    "bio": "TODO: 2–3 sentences written by the students.",
+    "portrait": "",
+    "portraitSource": ""
+  },
+  {
+    "id": "stephen-king",
+    "name": "Stephen King",
+    "born": 1947,
+    "died": null,
+    "country": "United States",
+    "bio": "TODO: 2–3 sentences written by the students.",
+    "portrait": "",
+    "portraitSource": "No photo: living author. Initials card only."
+  }
+]

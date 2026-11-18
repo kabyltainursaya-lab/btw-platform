@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About · Between the Lines</title>
+  <meta name="description" content="Between the Lines: a study-podcast platform where Story meets Science.">
+
+  <!-- Logo in the browser tab and on phone home screens -->
+  <link rel="icon" type="image/png" href="images/favicon-3-black-script.png">
+  <link rel="apple-touch-icon" href="images/favicon-3-black-script.png">
+
+  <!-- Fonts: Playfair Display (headings), Pinyon Script (decorative), Jost (text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <!-- Our one shared stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<!-- data-page tells app.js which menu link to highlight -->
+<body data-page="about">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="layout">
+    <!-- Empty on purpose: js/app.js builds the menu here -->
+    <nav id="sidebar"></nav>
+
+    <main id="main" class="main">
+
+      <header class="page-head">
+        <span class="pill">/about</span>
+        <h1>About <span class="script">Between</span> the Lines</h1>
+        <p class="lead">A story-first approach to science, math &amp; history.</p>
+      </header>
+
+      <!-- ===== 1. WHAT WE DO ===== -->
+      <section class="about-intro reveal">
+        <div>
+          <h2 class="section-title">Step inside a scene from literature — and discover the real idea hiding behind it</h2>
+          <p>Between the Lines is an interdisciplinary study podcast for high-school students. Each video episode opens with one scene from a classic English or American book, explains the real science, math or history concept hidden in it, and finds the same pattern in modern pop culture or non-English literature: the <em>modern echo</em>.</p>
+          <a class="btn" href="episodes.html">Explore episodes</a>
+        </div>
+        <div class="about-img">
+          <!-- Decorative photo. Replace images/book.jpg with your own photo (same name),
+               or change the src. If the file is missing, a paper texture appears instead. -->
+          <img src="images/book.jpg" alt="An open book in warm light" data-fallback="texture">
+        </div>
+      </section>
+
+      <!-- ===== 2. SCRIPT STRUCTURE ===== -->
+      <section class="section reveal" aria-labelledby="structure-title">
+        <h2 class="section-title" id="structure-title">How every episode is built</h2>
+        <ol class="structure">
+          <li class="card card-pink">
+            <span class="num">1</span>
+            <h3>The Scene</h3>
+            <p>One scene from a classic English or American book.</p>
+          </li>
+          <li class="card card-green">
+            <span class="num">2</span>
+            <h3>The Concept</h3>
+            <p>The real science, math or history idea hidden inside it.</p>
+          </li>
+          <li class="card card-ink">
+            <span class="num">3</span>
+            <h3>The Echo</h3>
+            <p>The same pattern in modern pop culture or non-English literature.</p>
+          </li>
+        </ol>
+      </section>
+
+      <!-- ===== 3. OUR METHOD: 5 STEPS ===== -->
+      <section class="section reveal" aria-labelledby="method-title">
+        <h2 class="section-title" id="method-title">Our method</h2>
+        <p class="lead">Every episode follows the same five research steps, so each connection is checked, not guessed.</p>
+        <ol class="steps">
+          <li class="card"><span class="num">1</span><h3>Select the scene</h3><p>Choose a passage from a classic English or American text that points to something outside literature.</p></li>
+          <li class="card"><span class="num">2</span><h3>Research the concept</h3><p>Investigate the real science, math or history behind the scene using credible sources.</p></li>
+          <li class="card"><span class="num">3</span><h3>Check the scholarship</h3><p>Read what literary critics and the author's own writing say, so the analysis stays grounded.</p></li>
+          <li class="card"><span class="num">4</span><h3>Find the modern echo</h3><p>Look for the same pattern in pop culture or a non-English literary tradition.</p></li>
+          <li class="card"><span class="num">5</span><h3>Write the synthesis</h3><p>Explain how the scene, the concept and the echo all reflect one underlying pattern.</p></li>
+        </ol>
+      </section>
+
+      <!-- ===== 4. CIS FRAMEWORK (three overlapping circles, like v1) ===== -->
+      <section class="section card card-cream reveal" aria-labelledby="cis-title">
+        <h2 class="section-title" id="cis-title">How we check each episode</h2>
+        <p>We use the <strong>CIS framework</strong> (Novis-Deutsch et al., 2024): Comprehension → Integration → Synthesis.</p>
+        <ol class="cis">
+          <li class="circle c1"><h3>Comprehension</h3><p>Both the book and the science are explained accurately.</p></li>
+          <li class="circle c2"><h3>Integration</h3><p>The connection between them is real, not random.</p></li>
+          <li class="circle c3"><h3>Synthesis</h3><p>Together they reveal a new idea neither shows alone.</p></li>
+        </ol>
+      </section>
+
+      <!-- ===== 5. WHY LISTEN? ===== -->
+      <section class="section reveal" aria-labelledby="why-title">
+        <h2 class="section-title" id="why-title">Why listen?</h2>
+        <p class="lead">A podcast made by students, for students: short, clear and backed by real sources.</p>
+        <div class="why-grid">
+          <div class="card why-item">
+            <div class="why-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div>
+            <h3>Short and clear</h3>
+            <p>Each episode takes about ten minutes, perfect for a break or the bus ride home.</p>
+          </div>
+          <div class="card why-item">
+            <div class="why-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="9" cy="12" r="6"/><circle cx="15" cy="12" r="6"/></svg></div>
+            <h3>Two subjects at once</h3>
+            <p>Learn literature and science or history together, and see how they connect.</p>
+          </div>
+          <div class="card why-item">
+            <div class="why-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg></div>
+            <h3>Full transcripts</h3>
+            <p>Read along with every episode to follow easily and build your English vocabulary.</p>
+          </div>
+          <div class="card why-item">
+            <div class="why-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h6a2 2 0 0 1 2 2v14a2 2 0 0 0-2-2H4z"/><path d="M20 4h-6a2 2 0 0 0-2 2v14a2 2 0 0 1 2-2h6z"/></svg></div>
+            <h3>Real sources</h3>
+            <p>Every idea is checked against academic research, listed in the show notes.</p>
+          </div>
+          <div class="card why-item">
+            <div class="why-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M12 3a6 6 0 0 0-4 10.5c.6.6 1 1.4 1 2.5h6c0-1.1.4-1.9 1-2.5A6 6 0 0 0 12 3z"/></svg></div>
+            <h3>Fresh ideas</h3>
+            <p>Get new angles for literature essays, class discussions and projects.</p>
+          </div>
+          <div class="card why-item">
+            <div class="why-icon"><svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></div>
+            <h3>Free, anytime</h3>
+            <p>Watch on your phone or laptop, whenever you want, at no cost.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== 6. TEAM =====
+           The team cards come from data/team.json (built by js/about.js).
+           To show your photo: put it in images/ and write its path in "photo",
+           e.g. "photo": "images/nursaya.jpg". Empty "photo" = paper card with initials. -->
+      <section class="section card card-green reveal" aria-labelledby="team-title">
+        <h2 class="section-title" id="team-title">Meet the team</h2>
+        <div class="team" id="team">
+          <p class="meta">Loading the team…</p>
+        </div>
+        <p class="together">Together, we started Between the Lines because we kept noticing the same thing: the best stories are usually hiding a real idea, and the best science usually has a story behind it. So we decided to stop separating the two. Our goal is to create a space to explore literature through different disciplines.</p>
+      </section>
+
+      <!-- ===== 7. CONTACT, PROJECT, WHAT'S NEXT ===== -->
+      <div class="section grid reveal">
+        <section class="card" aria-labelledby="contact-title">
+          <h2 class="section-title" id="contact-title">Contact</h2>
+          <p>Nurorda Almaty</p>
+          <p><a href="mailto:uaisnurai@gmail.com">uaisnurai@gmail.com</a><br>
+             <a href="mailto:kabyltainursaya@gmail.com">kabyltainursaya@gmail.com</a></p>
+        </section>
+        <section class="card" aria-labelledby="project-title">
+          <h2 class="section-title" id="project-title">The project</h2>
+          <p>Student research project, 2026</p>
+          <p>Linguistics (English Language)</p>
+        </section>
+        <section class="card card-ink" aria-labelledby="next-title">
+          <h2 class="section-title" id="next-title">Coming in stage 2</h2>
+          <p>Online accounts and shared reviews, using a real online database (for example Supabase). For now, your shelf is saved only in your own browser.</p>
+        </section>
+      </div>
+
+      <!-- ===== 8. IMAGE CREDITS =====
+           TODO (students): add the source of images/book.jpg here once you know it. -->
+      <section class="section" aria-labelledby="credits-title">
+        <h2 class="section-title" id="credits-title">Image credits</h2>
+        <ul class="credits">
+          <li>Portrait of Mary Shelley: Richard Rothwell, oil portrait (public domain).</li>
+          <li>Book covers on this site are designed with CSS. We do not use modern book covers or photos of living authors.</li>
+        </ul>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- Scripts go at the end, so the HTML above already exists -->
+  <script src="js/app.js"></script>
+  <script src="js/about.js"></script>
+</body>
+</html>

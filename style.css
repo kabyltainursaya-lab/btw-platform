@@ -1,0 +1,1431 @@
+/* =============================================================
+   BETWEEN THE LINES — DESIGN SYSTEM (style.css)
+   -------------------------------------------------------------
+   ONE stylesheet for ALL pages. Every page links to this file,
+   so a change here changes the whole platform.
+
+   Contents:
+     1. Design tokens (colours, fonts, sizes)  ← start here!
+     2. Base (page reset, text, links)
+     3. Layout (sidebar + main area)
+     4. Sidebar / bottom navigation
+     5. Typography helpers (headlines, script word)
+     6. Buttons
+     7. Pills and tags
+     8. Cards
+     9. Messages (loading, empty, error)
+    10. Bento grid and home cards
+    10b. Books and authors (covers, shelves, filters, detail pages)
+    10c. Episodes (status badges, video, show notes, quiz)
+    10d. Resources (research database)
+    10e. My Shelf, reviews, About
+    11. Footer
+    12. Fade-in on scroll
+    13. Accessibility helpers
+    14. Phones and tablets (media queries)
+   ============================================================= */
+
+
+/* -------------------------------------------------------------
+   1. DESIGN TOKENS
+   "Tokens" are named values (CSS variables). We write the colour
+   ONCE here, then use var(--green) everywhere else.
+   Change a value here → it updates on every page.
+   ------------------------------------------------------------- */
+:root {
+  /* Our four colours from the v1 site */
+  --pink:  #DBB8B2;   /* hero / highlights */
+  --cream: #FBF4EA;   /* main background, like paper */
+  --green: #C3C985;   /* buttons, accents */
+  --ink:   #1a1a1a;   /* text, dark cards */
+
+  /* Supporting shades (classic, not neon) */
+  --paper:    #FFFDF8;  /* card surface, a bit lighter than cream */
+  --burgundy: #6B2D2D;  /* links on hover, book covers */
+  --gold:     #B8963E;  /* thin frames on covers, stars */
+  --muted:    #5C544C;  /* secondary text (still easy to read) */
+  --line:     rgba(26, 26, 26, 0.14);  /* thin, soft borders */
+
+  /* Fonts (loaded from Google Fonts in each HTML <head>) */
+  --font-head:   'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-script: 'Pinyon Script', 'Snell Roundhand', cursive;
+  --font-body:   'Jost', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* Rounded corners */
+  --radius-sm: 16px;
+  --radius:    22px;
+  --radius-lg: 28px;
+
+  /* Soft shadow for cards */
+  --shadow: 0 1px 2px rgba(26, 26, 26, 0.05), 0 10px 28px rgba(26, 26, 26, 0.07);
+
+  /* Width of the left sidebar on laptops */
+  --sidebar-width: 96px;
+}
+
+
+/* -------------------------------------------------------------
+   2. BASE
+   ------------------------------------------------------------- */
+* { box-sizing: border-box; }   /* padding doesn't make boxes wider */
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  background: var(--cream);
+  color: var(--ink);
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-head);
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0 0 0.5em;
+}
+
+p { margin: 0 0 1em; }
+
+img { max-width: 100%; display: block; }
+
+a { color: var(--ink); text-underline-offset: 3px; }
+a:hover { color: var(--burgundy); }
+
+/* SVG icons inherit the text colour */
+.icon { width: 22px; height: 22px; flex-shrink: 0; }
+
+
+/* -------------------------------------------------------------
+   3. LAYOUT
+   Laptop: [ sidebar | main content ]  (a 2-column grid)
+   Phone:  main content on top, navigation bar at the bottom
+   ------------------------------------------------------------- */
+.layout {
+  display: grid;
+  grid-template-columns: var(--sidebar-width) minmax(0, 1fr);   /* minmax(0, …) lets the column shrink */
+  min-height: 100vh;
+}
+
+.main {
+  width: 100%;
+  max-width: 1240px;
+  padding: clamp(20px, 4vw, 48px);
+}
+
+/* The top bar with the logo only appears on phones (see section 14) */
+.topbar { display: none; }
+
+
+/* -------------------------------------------------------------
+   4. SIDEBAR / BOTTOM NAVIGATION
+   The HTML for this is written by js/app.js, so it is the same
+   on every page. On phones, the same element becomes a bottom bar.
+   ------------------------------------------------------------- */
+.sidebar {
+  position: sticky;      /* stays in place while the page scrolls */
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 22px 0;
+  border-right: 1px solid var(--line);
+  background: var(--cream);
+  z-index: 50;
+}
+
+.sidebar-logo img {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+}
+
+.nav-list {
+  list-style: none;
+  margin: 32px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  width: 74px;
+  padding: 10px 4px;
+  border-radius: var(--radius-sm);
+  font-size: 12.5px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s;
+}
+
+.nav-link:hover {
+  background: rgba(26, 26, 26, 0.06);
+  color: var(--ink);
+}
+
+/* The link of the page you are on (app.js adds aria-current="page") */
+.nav-link[aria-current="page"] {
+  background: var(--ink);
+  color: var(--cream);
+}
+
+
+/* -------------------------------------------------------------
+   5. TYPOGRAPHY HELPERS
+   ------------------------------------------------------------- */
+
+/* Page header: pill + big headline + short intro */
+.page-head { margin-bottom: clamp(28px, 4vw, 48px); }
+
+.page-head h1,
+.display {
+  font-size: clamp(40px, 6vw, 76px);
+  margin: 14px 0 12px;
+}
+
+.lead {
+  font-size: clamp(17px, 1.6vw, 20px);
+  color: var(--muted);
+  max-width: 640px;
+}
+
+/* Small decorative word, like "where" in "where Story meets Science".
+   Use only for ONE or TWO words. */
+.script {
+  font-family: var(--font-script);
+  font-weight: 400;
+  font-size: 1.15em;
+  line-height: 1;
+}
+
+.section-title {
+  font-size: clamp(28px, 3.5vw, 40px);
+  margin: 0 0 16px;
+}
+
+/* Greeting like "Good evening, reader" */
+.greeting {
+  font-size: 15px;
+  color: var(--muted);
+  margin: 0;
+}
+
+
+/* -------------------------------------------------------------
+   6. BUTTONS
+   <a class="btn">, <a class="btn btn-dark">, <a class="btn btn-ghost">
+   ------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 28px;
+  border: 1.5px solid var(--ink);
+  border-radius: 40px;
+  background: var(--green);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn:hover {
+  color: var(--ink);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
+}
+
+.btn-dark  { background: var(--ink); color: var(--cream); }
+.btn-dark:hover { color: var(--cream); }
+.btn-ghost { background: transparent; }
+
+/* Round arrow button (from the edtech design) */
+.arrow-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border: 1.5px solid var(--ink);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background 0.25s, transform 0.25s;
+}
+
+.arrow-btn:hover {
+  background: var(--green);
+  color: var(--ink);
+  transform: rotate(-45deg);
+}
+
+
+/* -------------------------------------------------------------
+   7. PILLS AND TAGS
+   .pill → small outlined label like "/episode"
+   .tag  → small filled label like "History of Science"
+   ------------------------------------------------------------- */
+.pill {
+  display: inline-block;
+  padding: 3px 14px;
+  border: 1px solid var(--ink);
+  border-radius: 20px;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+}
+
+.tag {
+  display: inline-block;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background: var(--pink);
+  color: var(--ink);       /* always dark text, even inside dark cards */
+  font-size: 13px;
+}
+
+.tag-green { background: var(--green); }
+.tag-ink   { background: var(--ink); color: var(--cream); }
+.tag-cream { background: var(--cream); border: 1px solid var(--line); }
+
+
+/* -------------------------------------------------------------
+   8. CARDS
+   Paper-like boxes with a thin border and rounded corners.
+   Add a colour class to change the background.
+   ------------------------------------------------------------- */
+.card {
+  position: relative;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: clamp(20px, 2.5vw, 28px);
+  box-shadow: var(--shadow);
+}
+
+.card h2, .card h3 { margin-top: 0; }
+
+.card-pink  { background: var(--pink);  border-color: transparent; }
+.card-green { background: var(--green); border-color: transparent; }
+.card-cream { background: var(--cream); }
+.card-ink   { background: var(--ink);   color: var(--cream); border-color: transparent; }
+.card-ink a { color: var(--cream); }
+.card-ink a:hover { color: var(--green); }
+.card-ink .btn,
+.card-ink .btn:hover { color: var(--ink); }   /* green buttons keep dark text */
+
+/* Put the round arrow in the top-right corner of a card */
+.card .arrow-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+.card-ink .arrow-btn { border-color: var(--cream); color: var(--cream); }
+.card-ink .arrow-btn:hover { color: var(--ink); }
+
+/* A simple responsive grid of cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+
+/* -------------------------------------------------------------
+   9. MESSAGES: loading, empty and error states
+   ------------------------------------------------------------- */
+.notice {
+  padding: 18px 22px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  color: var(--muted);
+}
+
+.notice-error {
+  border: 1.5px solid var(--burgundy);
+  border-style: solid;
+  color: var(--ink);
+  background: #F7E9E6;
+}
+
+.notice-error strong { color: var(--burgundy); }
+
+/* A box for pages that will be built in a later step */
+.placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  text-align: center;
+  border: 1.5px dashed var(--line);
+  border-radius: var(--radius-lg);
+  color: var(--muted);
+  padding: 32px;
+}
+
+
+/* -------------------------------------------------------------
+   10. BENTO GRID AND HOME CARDS
+   The home page is a grid of 6 equal columns. Each card says
+   how many columns (span) and rows it takes. Like a bento box!
+
+   Laptop layout:
+   ┌──────────── hero (4) ────────────┬─ episode (2) ─┐
+   ├── search (2) ──┬── quote (2) ────┼── author (2) ─┤
+   ├─ continue (2) ─┼─── week (2) ────┤   (2 rows)    │
+   ├──────────────── resources (6) ───────────────────┤
+   └──────────────────────────────────────────────────┘
+   ------------------------------------------------------------- */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 20px;
+  grid-auto-flow: dense;   /* fills empty holes in the grid */
+}
+
+.b-hero      { grid-column: span 4; }
+.b-episode   { grid-column: span 2; }
+.b-search    { grid-column: span 2; }
+.b-quote     { grid-column: span 2; }
+.b-author    { grid-column: span 2; grid-row: span 2; }
+.b-continue  { grid-column: span 2; }
+.b-week      { grid-column: span 2; }
+.b-resources { grid-column: span 6; }
+
+/* Small label at the top of each card, like "LATEST EPISODE" */
+.card-label {
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 14px;
+  opacity: 0.75;
+}
+
+/* Grey-brown small text for details */
+.meta {
+  display: block;
+  font-size: 14px;
+  color: var(--muted);
+}
+.card-ink .meta { color: rgba(251, 244, 234, 0.75); }
+/* On pink and green cards, the normal grey is too light: use a darker one (contrast 6.3:1+) */
+.card-pink .meta, .card-green .meta, .card-pink .greeting, .card-green .greeting { color: #3d3833; }
+
+/* Grey hint text inside search boxes (browsers' default grey is too light) */
+::placeholder { color: var(--muted); opacity: 1; }
+
+/* Hero card: two columns → [ text | arched picture ] */
+.b-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(160px, 0.6fr);
+  gap: clamp(20px, 3vw, 40px);
+  align-items: center;
+  padding: clamp(28px, 4vw, 48px);
+}
+.b-hero .display { margin: 8px 0 6px; font-size: clamp(40px, 5vw, 66px); }
+
+/* The picture in an arch, like a portrait in a museum:
+   cream border + a thin ink line around it (box-shadow follows the round shape) */
+.hero-figure { margin: 0; }
+.hero-figure img,
+.hero-figure .paper-texture {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  object-position: center top;   /* keep the face in view */
+  border-radius: 999px 999px 18px 18px;
+  border: 6px solid var(--cream);
+  box-shadow: 0 0 0 1.5px var(--ink), 0 18px 30px rgba(26, 26, 26, 0.15);
+}
+.hero-figure figcaption {
+  margin-top: 12px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  text-align: center;
+  color: #3d3833;
+}
+.hero-tagline {
+  font-family: var(--font-head);
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: 1.2;
+  margin: 0 0 14px;
+}
+.hero-intro { max-width: 520px; font-size: 18px; margin-bottom: 26px; }
+
+/* Latest episode card */
+.episode-title { font-size: clamp(24px, 2.4vw, 30px); padding-right: 44px; margin: 16px 0 8px; }
+.episode-book  { opacity: 0.85; }
+.tags-row      { gap: 8px; }
+.pill-light    { border-color: var(--cream); }
+.b-episode .card-label { padding-right: 56px; }   /* room for the round arrow */
+
+/* Episode card: a column, with the buttons pushed to the bottom.
+   If the card is taller than its text, the extra space goes in the middle. */
+.b-episode, #latest-episode { display: flex; flex-direction: column; }
+#latest-episode { flex: 1; }
+#latest-episode > .row:last-child { margin-top: auto; padding-top: 16px; }
+
+/* "Save" button (used on many pages) */
+.save-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border: 1.5px solid currentColor;
+  border-radius: 40px;
+  background: transparent;
+  color: inherit;
+  font-family: var(--font-body);
+  font-size: 15px;
+  cursor: pointer;
+}
+.save-btn .icon { width: 18px; height: 18px; }
+.save-btn[aria-pressed="true"] { background: var(--pink); color: var(--ink); border-color: var(--pink); }
+
+/* Quick search */
+.search-input {
+  width: 100%;
+  padding: 13px 18px;
+  border: 1.5px solid var(--ink);
+  border-radius: 40px;
+  background: var(--cream);
+  font-family: var(--font-body);
+  font-size: 16px;   /* 16px stops iPhones from zooming in */
+  color: var(--ink);
+}
+.search-results { margin-top: 12px; }
+
+/* Suggestion chips under the search box */
+.chips { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 4px; }
+.chip {
+  padding: 6px 14px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--cream);
+  font-family: var(--font-body);
+  font-size: 14px;
+  color: var(--ink);
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+.chip:hover { border-color: var(--ink); }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--cream); border-color: var(--ink); }
+
+/* "NEWEST RESOURCES" label and the short list under it */
+.list-label {
+  margin: 18px 0 0;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.compact-list li { padding: 10px 0; }
+.compact-list a { font-size: 15px; line-height: 1.35; }
+
+/* Quote of the day */
+.quote { margin: 0; }
+.quote p {
+  font-family: var(--font-head);
+  font-style: italic;
+  font-size: clamp(20px, 2vw, 24px);
+  line-height: 1.35;
+  margin-bottom: 12px;
+}
+.quote footer { font-size: 15px; }
+
+/* Featured author */
+.author-feature { display: grid; gap: 18px; }
+.author-feature h3 { font-size: 28px; margin: 0 0 4px; }
+.author-feature .meta { margin-bottom: 10px; }
+
+.author-figure { margin: 0; max-width: 150px; }
+.author-figure figcaption { font-size: 12.5px; margin-top: 6px; opacity: 0.8; }
+
+/* Simple lists inside cards (continue watching, resources, search) */
+.mini-list { list-style: none; margin: 0; padding: 0; }
+.mini-list li {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+.mini-list li:last-child { border-bottom: 0; }
+.mini-list a { font-weight: 500; }
+.mini-list .icon { width: 15px; height: 15px; vertical-align: -2px; }
+.resource-list .tags-row { margin-bottom: 6px; }
+
+.resource-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0 24px;
+}
+.resource-list li:last-child { border-bottom: 1px solid var(--line); }
+
+.more-link { display: inline-block; margin-top: 14px; font-weight: 500; }
+
+/* Study week strip */
+.week {
+  list-style: none;
+  margin: 0 0 12px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+.day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 8px 0;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  font-size: 12px;
+}
+.day-num { font-family: var(--font-head); font-size: 18px; }
+.day.visited { background: var(--green); border-color: transparent; }
+.day.today { border: 1.5px solid var(--ink); }
+
+/* Tablet: 2 columns */
+@media (max-width: 1100px) {
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .bento > * { grid-column: span 1; grid-row: span 1; }
+  .b-hero, .b-resources { grid-column: span 2; }
+}
+
+/* Phone: 1 column, cards stacked */
+@media (max-width: 640px) {
+  .bento { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .b-hero, .b-resources { grid-column: span 1; }
+  /* Hero: picture goes under the text, smaller and centred */
+  .b-hero { grid-template-columns: minmax(0, 1fr); }
+  .hero-figure { width: 62%; max-width: 230px; justify-self: center; }
+}
+
+
+/* -------------------------------------------------------------
+   10b. BOOKS AND AUTHORS
+   ------------------------------------------------------------- */
+
+/* ---- CSS book cover ----
+   Background = the book's coverColor (set as --cover by app.js).
+   ::before draws the thin gold frame, ::after the spine line.
+   "cqw" = % of the cover's own width, so the text shrinks
+   on small covers and grows on big ones. */
+.cover {
+  position: relative;
+  container-type: inline-size;
+  aspect-ratio: 2 / 3;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8%;
+  padding: 18% 14% 18% 18%;
+  background: var(--cover, #3b2f2f);
+  color: var(--cream);
+  text-align: center;
+  border-radius: 4px 12px 12px 4px;
+  box-shadow:
+    inset 8px 0 0 rgba(0, 0, 0, 0.22),    /* darker spine edge */
+    0 10px 22px rgba(26, 26, 26, 0.18);   /* shadow under the book */
+  overflow: hidden;
+}
+.cover::before {          /* gold frame */
+  content: '';
+  position: absolute;
+  inset: 7% 7% 7% 11%;
+  border: 1px solid var(--gold);
+  border-radius: 2px 6px 6px 2px;
+}
+.cover::after {           /* gold spine line */
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 6%;
+  width: 1px;
+  background: rgba(184, 150, 62, 0.7);
+}
+.cover-title {
+  font-family: var(--font-head);
+  font-size: 20px;              /* for old browsers */
+  font-size: 12cqw;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+.cover-line {             /* small gold ornament line */
+  width: 30%;
+  height: 1px;
+  background: var(--gold);
+}
+.cover-author {
+  font-size: 11px;
+  font-size: 6.5cqw;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+/* ---- Book card (cover + title + author) ---- */
+.book-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.book-card .cover { margin-bottom: 8px; transition: transform 0.25s; }
+.book-card:hover .cover { transform: translateY(-6px) rotate(-1deg); }
+.book-card:hover { color: var(--ink); }
+.book-card-title { font-family: var(--font-head); font-size: 18px; line-height: 1.2; }
+.book-card .tag { align-self: flex-start; margin-top: 4px; }
+
+/* ---- Library filters ---- */
+.filters {
+  display: grid;
+  grid-template-columns: 2fr repeat(3, 1fr);
+  gap: 14px;
+  align-items: end;
+}
+.field label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 6px;
+}
+.field select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.5px solid var(--ink);
+  border-radius: 14px;
+  background: var(--cream);
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: var(--ink);
+}
+.filters-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 16px;
+}
+.checkbox { display: inline-flex; align-items: center; gap: 8px; margin-right: 18px; cursor: pointer; }
+.checkbox input { width: 18px; height: 18px; accent-color: var(--ink); }
+
+/* Small "Shelves / Grid" switch */
+.toggle { display: inline-flex; border: 1.5px solid var(--ink); border-radius: 40px; overflow: hidden; }
+.toggle button {
+  padding: 8px 18px;
+  border: 0;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--ink);
+  cursor: pointer;
+}
+.toggle button[aria-pressed="true"] { background: var(--ink); color: var(--cream); }
+
+.text-btn {
+  border: 0;
+  background: none;
+  padding: 4px;
+  font-family: var(--font-body);
+  font-size: 15px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  color: var(--ink);
+}
+
+.result-count { margin: 26px 0 8px; color: var(--muted); }
+
+/* ---- Shelves: a row of books on a "wooden" shelf ---- */
+.shelf { margin-top: 30px; }
+.shelf h2 { font-size: clamp(24px, 2.6vw, 30px); margin-bottom: 4px; }
+.shelf-row {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;                    /* swipe sideways if there are many books */
+  scroll-snap-type: x mandatory;
+  padding: 18px 4px 22px;
+  border-bottom: 10px solid #8a6a4f;   /* the wooden board */
+  box-shadow: 0 8px 10px -6px rgba(26, 26, 26, 0.35);
+  border-radius: 0 0 4px 4px;
+}
+.shelf-row .book-card { flex: 0 0 150px; scroll-snap-align: start; }
+
+/* ---- Grid of books ---- */
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 30px 24px;
+  margin-top: 10px;
+}
+
+/* ---- Book page ---- */
+.detail {
+  display: grid;
+  grid-template-columns: minmax(200px, 300px) 1fr;
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+}
+.detail-cover .cover { box-shadow: inset 10px 0 0 rgba(0, 0, 0, 0.22), 0 22px 40px rgba(26, 26, 26, 0.25); }
+.detail h1 { font-size: clamp(34px, 4.5vw, 56px); margin: 12px 0 10px; }
+.facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin: 22px 0;
+  padding: 18px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+.facts dt { font-size: 13px; color: var(--muted); }
+.facts dd { margin: 0; font-weight: 500; }
+.tag-link { text-decoration: none; }
+.tag-link:hover { background: var(--ink); color: var(--cream); }
+
+.author-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 18px;
+  text-decoration: none;
+}
+.author-chip .author-pic,
+.author-chip .author-pic.initials { width: 40px; border-radius: 10px; font-size: 15px; box-shadow: none; }
+
+.section { margin-top: clamp(36px, 5vw, 56px); }
+
+/* Episode links on the book page */
+.episode-link {
+  display: block;
+  color: var(--ink);
+  text-decoration: none;
+}
+.episode-link h3 { font-size: 22px; margin: 10px 0 6px; padding-right: 50px; }
+.episode-link:hover { color: var(--ink); }
+.episode-link:hover .arrow-btn { background: var(--green); transform: rotate(-45deg); }
+
+/* ---- Pictures of people: a photo OR a designed placeholder ----
+   .author-pic can be an <img> (a real photo) or a <div> (placeholder).
+   Both get the same size and shape, so swapping one for the other
+   never moves the layout. */
+.author-pic {
+  display: block;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+}
+img.author-pic { object-fit: cover; object-position: top; }   /* crop photos neatly, keep faces */
+
+/* Placeholder look 1: "ink" — dark card with a thin gold frame (authors) */
+.author-pic.initials {
+  display: grid;
+  place-items: center;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-head);
+  font-size: clamp(36px, 6vw, 64px);
+  box-shadow: inset 0 0 0 7px var(--ink), inset 0 0 0 8px var(--gold);   /* thin gold frame */
+}
+
+/* Placeholder look 2: "paper" — old paper texture (our team).
+   Made only with CSS gradients, no image file:
+   a soft light spot + very fine horizontal lines + faint vertical "fibres"
+   + darker edges, like an old page. */
+.author-pic.initials.paper,
+.paper-texture {
+  background-color: #F3E7D6;
+  background-image:
+    radial-gradient(ellipse at 35% 25%, rgba(255, 255, 255, 0.75), transparent 60%),
+    repeating-linear-gradient(0deg, rgba(90, 60, 30, 0.035) 0 1px, transparent 1px 5px),
+    repeating-linear-gradient(90deg, rgba(90, 60, 30, 0.025) 0 1px, transparent 1px 9px);
+  color: var(--ink);
+  box-shadow:
+    inset 0 0 0 7px #F3E7D6,              /* margin inside the edge */
+    inset 0 0 0 8px var(--gold),          /* thin gold frame */
+    inset 0 0 50px rgba(120, 85, 50, 0.22); /* darker, "aged" edges */
+}
+
+/* Decorative paper block (used if images/book.jpg is missing) */
+.paper-texture {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 4 / 5;
+  width: 100%;
+  padding: 16%;               /* keeps the text inside the gold frame */
+  text-align: center;
+  container-type: inline-size;
+}
+.paper-texture span {
+  font-family: var(--font-script);
+  font-size: 30px;            /* for old browsers */
+  font-size: 15cqw;           /* grows and shrinks with the block */
+  line-height: 1.1;
+  color: var(--burgundy);
+  opacity: 0.85;
+}
+
+/* ---- Authors grid ---- */
+.author-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 24px;
+}
+.author-card {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 14px 14px 20px;
+  color: var(--ink);
+  text-decoration: none;
+  transition: transform 0.25s;
+}
+.author-card:hover { color: var(--ink); transform: translateY(-4px); }
+.author-card h2 { font-size: 22px; margin: 12px 0 0; }
+.author-card .tag { align-self: flex-start; margin-top: 6px; }
+.portrait-source { font-size: 13px; color: var(--muted); margin-top: 8px; }
+
+/* -------------------------------------------------------------
+   10c. EPISODES
+   ------------------------------------------------------------- */
+
+/* Status badges (app.js: statusBadgeHTML) */
+.status-published     { background: var(--green); }
+.status-in-production { background: var(--pink); }
+.status-coming-soon   { background: var(--cream); border: 1px solid var(--line); }
+
+/* Episode page headline: a bit smaller, because episode titles are long */
+.episode-head h1 { font-size: clamp(32px, 4.5vw, 56px); }
+
+/* Episodes list */
+.status-filter { margin-bottom: 28px; flex-wrap: wrap; }
+.episode-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 22px;
+}
+.episode-card { display: flex; flex-direction: column; }
+.episode-card-title { font-size: 24px; margin: 14px 0 8px; padding-right: 50px; }
+/* No fading (faded text is hard to read); the dashed border says "not ready yet" */
+.episode-card.is-soon { box-shadow: none; background: transparent; border: 1.5px dashed var(--line); }
+
+/* Video: a 16:9 box (like a TV screen) */
+.video {
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--ink);
+}
+.video iframe { width: 100%; height: 100%; border: 0; display: block; }
+.video-soon {
+  display: grid;
+  place-items: center;
+  background: var(--green);
+  border: 1.5px solid var(--ink);
+  font-family: var(--font-head);
+  font-size: clamp(22px, 3vw, 32px);
+}
+
+/* Show notes: 4 cards */
+.notes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+.note-card h3 { font-size: 22px; margin: 12px 0 2px; }
+.num {                     /* numbered circle, like the v1 method steps */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--green);
+  border: 1.5px solid var(--ink);
+  font-family: var(--font-head);
+  font-size: 18px;
+}
+
+/* Transcript: a box that opens and closes (<details>) */
+.transcript summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+.transcript summary::-webkit-details-marker { display: none; }
+.transcript summary::after { content: '+'; font-size: 28px; line-height: 1; }
+.transcript[open] summary::after { content: '−'; }
+.transcript .section-title { margin: 0; }
+.transcript-text { margin-top: 16px; max-width: 70ch; }
+
+/* Quiz */
+.question {
+  border: 0;
+  /* the line on top is a shadow, because a <legend> cuts through a real border */
+  box-shadow: inset 0 1px 0 var(--line);
+  margin: 0;
+  padding: 22px 0;
+}
+.question legend {
+  float: left;                 /* trick: stops the legend from sitting ON the top edge */
+  width: 100%;
+  font-family: var(--font-head);
+  font-size: clamp(19px, 2vw, 22px);
+  line-height: 1.3;
+  padding: 0;
+  margin-bottom: 14px;
+}
+.question > * { clear: both; }   /* answers start below the floated legend */
+.q-num {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.option {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  border: 1.5px solid var(--line);
+  border-radius: 14px;
+  background: var(--paper);
+  cursor: pointer;
+}
+.option:hover { border-color: var(--ink); }
+.option input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--ink); flex-shrink: 0; }
+.option-inline { display: inline-flex; margin-right: 10px; min-width: 110px; }
+.option.correct { border-color: #5d6b2a; background: #EEF0D9; }   /* green = right answer */
+.option.wrong   { border-color: var(--burgundy); background: #F7E9E6; }   /* red = wrong choice */
+.option:has(input:disabled) { cursor: default; }
+
+.question textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1.5px solid var(--ink);
+  border-radius: 14px;
+  background: var(--paper);
+  font-family: var(--font-body);
+  font-size: 16px;
+  margin-bottom: 12px;
+  resize: vertical;
+}
+
+.feedback { margin: 10px 0 0; font-weight: 500; }
+.feedback:empty { display: none; }
+.feedback.is-right { color: #4a5622; }
+.feedback.is-wrong { color: var(--burgundy); }
+.feedback.is-model { font-weight: 400; padding: 14px 16px; border-radius: 14px; background: var(--paper); border: 1px solid var(--line); }
+
+.quiz-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+}
+.quiz-score { margin: 0; font-family: var(--font-head); font-size: 22px; }
+
+/* Linked book + resources, side by side */
+.links-grid {
+  display: grid;
+  grid-template-columns: minmax(160px, 220px) 1fr;
+  gap: clamp(20px, 4vw, 40px);
+  align-items: start;
+}
+.linked-book { max-width: 200px; }
+
+/* -------------------------------------------------------------
+   10d. RESOURCES
+   ------------------------------------------------------------- */
+
+/* 7 filter fields: search on its own row, then the menus */
+.filters-wide { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); }
+.filters-wide .field-search { grid-column: 1 / -1; }
+
+.resource-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+  gap: 22px;
+}
+.resource-card { display: flex; flex-direction: column; gap: 6px; }
+.resource-title { font-size: 22px; line-height: 1.3; margin: 10px 0 2px; }
+.resource-title a { text-decoration: none; }
+.resource-title a:hover { text-decoration: underline; }
+.resource-note { margin: 6px 0; }
+.topics { margin: 4px 0; }
+.topic { font-size: 13px; color: var(--muted); margin-right: 6px; }
+.resource-actions { margin-top: auto; padding-top: 12px; }   /* buttons stick to the bottom */
+.resource-actions .btn { padding: 10px 20px; font-size: 15px; }
+
+/* The citation shown after pressing "Copy APA citation" */
+.citation-box {
+  margin-top: 12px;
+  padding: 14px 16px;
+  border-radius: 14px;
+  background: var(--cream);
+  border: 1px solid var(--line);
+}
+.citation-status { font-weight: 500; margin-bottom: 6px; }
+.citation-text { font-size: 15px; user-select: all; overflow-wrap: anywhere; margin-bottom: 6px; }
+
+/* A resource opened from the search (?id=…) */
+.resource-card.highlight { outline: 3px solid var(--gold); outline-offset: 3px; }
+
+/* -------------------------------------------------------------
+   10e. MY SHELF, REVIEWS, ABOUT
+   ------------------------------------------------------------- */
+
+/* "Mark as watched / read" button: green when done */
+.done-btn[aria-pressed="true"] { background: var(--green); color: var(--ink); border-color: var(--green); }
+
+/* Shelf: summary with progress bar */
+.shelf-summary { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; }
+.shelf-numbers { margin: 0; font-family: var(--font-head); font-size: 26px; }
+.shelf-summary progress {
+  flex: 1 1 200px;
+  height: 12px;
+  border-radius: 10px;
+  overflow: hidden;
+  appearance: none;
+  background: var(--cream);
+  border: 1px solid var(--ink);
+}
+.shelf-summary progress::-webkit-progress-bar { background: var(--cream); }
+.shelf-summary progress::-webkit-progress-value { background: var(--ink); }
+.shelf-summary progress::-moz-progress-bar { background: var(--ink); }
+
+.shelf-group { margin-top: 36px; }
+.count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 8px;
+  border-radius: 15px;
+  background: var(--ink);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 14px;
+  vertical-align: middle;
+}
+.shelf-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.shelf-item {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+}
+.shelf-item.is-done .shelf-title a { text-decoration: line-through; text-decoration-thickness: 1px; }
+.shelf-item.is-done { background: var(--cream); }
+.shelf-thumb .cover { width: 56px; box-shadow: inset 4px 0 0 rgba(0,0,0,.22); }
+.shelf-thumb .cover-title, .shelf-thumb .cover-author, .shelf-thumb .cover-line { display: none; }   /* too small for text */
+.shelf-thumb-num, .shelf-thumb-icon {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--pink);
+  font-family: var(--font-head);
+  font-size: 24px;
+}
+.shelf-thumb-icon { background: var(--green); }
+.shelf-info { min-width: 0; }
+.shelf-title { display: block; font-weight: 500; overflow-wrap: anywhere; }
+.shelf-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.clear-shelf { margin-top: 36px; }
+.shelf-note { margin-top: 28px; }
+.empty-shelf { text-align: left; }
+
+/* Reviews */
+.stars { display: inline-flex; gap: 2px; vertical-align: -3px; }
+.star { width: 18px; height: 18px; fill: none; stroke: var(--gold); stroke-width: 1.5; stroke-linejoin: round; }
+.star.on { fill: var(--gold); }
+.review { margin: 0; }
+.review blockquote { margin: 12px 0; font-family: var(--font-head); font-style: italic; font-size: 19px; line-height: 1.4; }
+.review-summary { font-size: 18px; }
+
+/* About: intro with the framed book photo (green "shadow" like v1) */
+.about-intro {
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: clamp(28px, 5vw, 60px);
+  align-items: center;
+}
+.about-intro .section-title { font-size: clamp(28px, 3.4vw, 44px); }
+.about-img {
+  padding: 16px;
+  background: var(--cream);
+  border: 1.5px solid var(--ink);
+  box-shadow: 20px 20px 0 var(--green);
+  margin-right: 20px;
+}
+
+/* Scene → Concept → Echo, and the 5 steps */
+.structure, .steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+.structure { grid-template-columns: repeat(3, 1fr); }
+.steps { grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); }
+.structure h3, .steps h3 { font-size: 22px; margin: 12px 0 6px; }
+.structure p, .steps p { margin: 0; font-size: 15.5px; }
+.card-ink .num { color: var(--ink); }
+
+/* CIS: three overlapping circles (from v1) */
+.cis { list-style: none; margin: 24px 0 0; padding: 0; display: flex; justify-content: center; flex-wrap: wrap; }
+.circle {
+  width: 230px;
+  height: 230px;
+  margin: 0 -12px;
+  border-radius: 50%;
+  border: 1.5px solid var(--ink);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 28px;
+}
+.circle h3 { font-size: 21px; margin: 0 0 6px; }
+.circle p { font-size: 14px; margin: 0; }
+.c1 { background: var(--paper); }
+.c2 { background: var(--green); }
+.c3 { background: var(--ink); color: var(--cream); }
+
+/* Why listen? */
+.why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+.why-icon {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 16px;
+  background: var(--pink);
+  margin-bottom: 14px;
+}
+.why-item h3 { font-size: 21px; margin: 0 0 6px; }
+.why-item p { margin: 0; font-size: 15.5px; color: var(--muted); }
+
+/* Team */
+.team { display: flex; flex-wrap: wrap; gap: 28px; margin-bottom: 24px; }
+.member { margin: 0; width: 200px; }
+.member .author-pic {          /* photo or placeholder: same oval */
+  width: 200px;
+  height: 250px;
+  aspect-ratio: auto;
+  object-fit: cover;
+  border-radius: 50%;          /* oval photo, like v1 */
+  border: 8px solid var(--cream);
+}
+.member figcaption { margin-top: 12px; text-align: center; font-size: 18px; }
+.together { max-width: 760px; margin: 0; padding: 20px 26px; background: var(--cream); border-radius: var(--radius-sm); font-size: 17px; }
+
+.credits { padding-left: 20px; color: var(--muted); }
+
+/* Tablets and phones */
+@media (max-width: 900px) {
+  .filters { grid-template-columns: 1fr 1fr; }
+  .about-intro { grid-template-columns: 1fr; }
+  .structure { grid-template-columns: 1fr; }
+  .filters .field:first-child { grid-column: 1 / -1; }   /* search takes the full row */
+}
+@media (max-width: 640px) {
+  .detail { grid-template-columns: 1fr; }
+  .detail-cover { max-width: 220px; }
+  .filters { grid-template-columns: 1fr; }
+  .shelf-row .book-card { flex-basis: 128px; }
+  .book-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 16px; }
+  .author-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .links-grid { grid-template-columns: 1fr; }
+  .linked-book { max-width: 160px; }
+  .status-filter { border-radius: 20px; }
+  .status-filter button { padding: 8px 12px; font-size: 14px; }
+  /* Shelf items: buttons go under the title */
+  .shelf-item { grid-template-columns: 56px 1fr; }
+  .shelf-actions { grid-column: 1 / -1; justify-content: flex-start; }
+  /* CIS circles stack and overlap vertically */
+  .cis { flex-direction: column; align-items: center; }
+  .circle { margin: -10px 0; width: 210px; height: 210px; }
+  .team { justify-content: center; }
+  .member, .member .author-pic { width: 150px; }
+  .member .author-pic { height: 190px; }
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+.stack > * + * { margin-top: 28px; }   /* space between stacked blocks */
+
+
+/* -------------------------------------------------------------
+   11. FOOTER
+   ------------------------------------------------------------- */
+.site-footer {
+  margin-top: 64px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.site-footer p { margin: 0; }
+
+
+/* -------------------------------------------------------------
+   12. FADE-IN ON SCROLL
+   app.js adds the class "js" to <html> and "visible" to an
+   element when it scrolls into view. Without JavaScript,
+   nothing is hidden.
+   ------------------------------------------------------------- */
+.js .reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.js .reveal.visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Some people get dizzy from motion: they can switch it off
+   in their computer settings, and we respect that. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .btn, .arrow-btn, .book-card .cover, .author-card { transition: none; }
+}
+
+
+/* -------------------------------------------------------------
+   13. ACCESSIBILITY HELPERS
+   ------------------------------------------------------------- */
+
+/* A clear outline when you move around with the Tab key */
+:focus-visible {
+  outline: 3px solid var(--burgundy);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* "Skip to content" link: hidden until you press Tab */
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 100;
+  padding: 10px 18px;
+  background: var(--ink);
+  color: var(--cream);
+  border-radius: 10px;
+}
+.skip-link:focus { top: 12px; color: var(--cream); }
+
+/* Text for screen readers only (invisible on screen) */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+
+/* -------------------------------------------------------------
+   14. PHONES AND TABLETS
+   Below 900px wide: the sidebar becomes a bar at the bottom,
+   and a small top bar with the logo appears.
+   ------------------------------------------------------------- */
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;     /* stops the top bar from stretching tall */
+  }
+
+  .topbar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 20px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-head);
+    font-size: 20px;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .topbar img { width: 36px; height: 36px; border-radius: 9px; }
+
+  .sidebar {
+    position: fixed;          /* glued to the bottom of the screen */
+    top: auto;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: auto;
+    flex-direction: row;
+    padding: 6px 4px calc(6px + env(safe-area-inset-bottom));
+    border-right: 0;
+    border-top: 1px solid var(--line);
+    background: rgba(251, 244, 234, 0.97);
+  }
+
+  .sidebar-logo { display: none; }   /* the top bar shows the logo */
+
+  .nav-list {
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+    margin: 0;
+    gap: 0;
+  }
+
+  .nav-link {
+    width: auto;
+    min-width: 54px;
+    padding: 6px 4px;
+    font-size: 11px;
+  }
+
+  /* leave space so the bottom bar doesn't cover the content */
+  .main { padding-bottom: 110px; }
+}
+
+/* Very small phones (360px) */
+@media (max-width: 400px) {
+  body { font-size: 16px; }
+  .nav-link { min-width: 48px; font-size: 10.5px; }
+}

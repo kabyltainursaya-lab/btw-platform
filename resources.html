@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resources · Between the Lines</title>
+  <meta name="description" content="Between the Lines: a study-podcast platform where Story meets Science.">
+
+  <!-- Logo in the browser tab and on phone home screens -->
+  <link rel="icon" type="image/png" href="images/favicon-3-black-script.png">
+  <link rel="apple-touch-icon" href="images/favicon-3-black-script.png">
+
+  <!-- Fonts: Playfair Display (headings), Pinyon Script (decorative), Jost (text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <!-- Our one shared stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<!-- data-page tells app.js which menu link to highlight -->
+<body data-page="resources">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="layout">
+    <!-- Empty on purpose: js/app.js builds the menu here -->
+    <nav id="sidebar"></nav>
+
+    <main id="main" class="main">
+
+      <header class="page-head">
+        <span class="pill">/resources</span>
+        <h1>Resources</h1>
+        <p class="lead">Extra learning materials for every episode: primary sources, articles and digital archives. We only link out to the original source; nothing is copied here.</p>
+      </header>
+
+      <!-- ===== FILTERS (options are added by js/resources.js) ===== -->
+      <form class="card filters-card" id="filters" role="search">
+        <div class="filters filters-wide">
+          <div class="field field-search">
+            <label for="f-search">Search</label>
+            <input class="search-input" id="f-search" type="search" placeholder="Title, author, topic…" autocomplete="off">
+          </div>
+          <div class="field">
+            <label for="f-type">Type</label>
+            <select id="f-type"><option value="">All types</option></select>
+          </div>
+          <div class="field">
+            <label for="f-topic">Topic</label>
+            <select id="f-topic"><option value="">All topics</option></select>
+          </div>
+          <div class="field">
+            <label for="f-episode">Episode</label>
+            <select id="f-episode"><option value="">All episodes</option></select>
+          </div>
+          <div class="field">
+            <label for="f-book">Book</label>
+            <select id="f-book"><option value="">All books</option></select>
+          </div>
+          <div class="field">
+            <label for="f-level">Level</label>
+            <select id="f-level"><option value="">All levels</option></select>
+          </div>
+          <div class="field">
+            <label for="f-access">Access</label>
+            <select id="f-access"><option value="">Any access</option></select>
+          </div>
+        </div>
+        <div class="filters-bottom">
+          <button type="button" class="text-btn" id="f-reset">Reset filters</button>
+        </div>
+      </form>
+
+      <p class="result-count" id="result-count" aria-live="polite"></p>
+
+      <!-- Resource cards are added here by js/resources.js -->
+      <div id="resources">
+        <p class="notice">Loading resources…</p>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Scripts go at the end, so the HTML above already exists -->
+  <script src="js/app.js"></script>
+  <script src="js/resources.js"></script>
+</body>
+</html>

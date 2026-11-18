@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Author · Between the Lines</title>
+  <meta name="description" content="Between the Lines: a study-podcast platform where Story meets Science.">
+
+  <!-- Logo in the browser tab and on phone home screens -->
+  <link rel="icon" type="image/png" href="images/favicon-3-black-script.png">
+  <link rel="apple-touch-icon" href="images/favicon-3-black-script.png">
+
+  <!-- Fonts: Playfair Display (headings), Pinyon Script (decorative), Jost (text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <!-- Our one shared stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<!-- data-page tells app.js which menu link to highlight -->
+<body data-page="authors">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="layout">
+    <!-- Empty on purpose: js/app.js builds the menu here -->
+    <nav id="sidebar"></nav>
+
+    <main id="main" class="main">
+
+      <!-- Everything here is built by js/author.js, using the ?id= in the address -->
+      <div id="author">
+        <p class="notice">Loading author…</p>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Scripts go at the end, so the HTML above already exists -->
+  <script src="js/app.js"></script>
+  <script src="js/author.js"></script>
+</body>
+</html>

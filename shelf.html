@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Shelf · Between the Lines</title>
+  <meta name="description" content="Between the Lines: a study-podcast platform where Story meets Science.">
+
+  <!-- Logo in the browser tab and on phone home screens -->
+  <link rel="icon" type="image/png" href="images/favicon-3-black-script.png">
+  <link rel="apple-touch-icon" href="images/favicon-3-black-script.png">
+
+  <!-- Fonts: Playfair Display (headings), Pinyon Script (decorative), Jost (text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <!-- Our one shared stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<!-- data-page tells app.js which menu link to highlight -->
+<body data-page="shelf">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="layout">
+    <!-- Empty on purpose: js/app.js builds the menu here -->
+    <nav id="sidebar"></nav>
+
+    <main id="main" class="main">
+
+      <header class="page-head">
+        <span class="pill">/shelf</span>
+        <h1>My Shelf</h1>
+        <p class="lead">The books, episodes and resources you saved. Mark them as watched or read as you go.</p>
+      </header>
+
+      <!-- Progress summary, the saved items and the "Clear" button: built by js/shelf.js -->
+      <div id="shelf">
+        <p class="notice">Loading your shelf…</p>
+      </div>
+
+      <p class="meta shelf-note">Your shelf is saved in this browser, on this device only (no account needed). Online accounts are planned for stage 2.</p>
+
+    </main>
+  </div>
+
+  <!-- Scripts go at the end, so the HTML above already exists -->
+  <script src="js/app.js"></script>
+  <script src="js/shelf.js"></script>
+</body>
+</html>

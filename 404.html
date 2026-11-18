@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Page not found · Between the Lines</title>
+  <meta name="description" content="Between the Lines: a study-podcast platform where Story meets Science.">
+
+  <!-- Logo in the browser tab and on phone home screens -->
+  <link rel="icon" type="image/png" href="images/favicon-3-black-script.png">
+  <link rel="apple-touch-icon" href="images/favicon-3-black-script.png">
+
+  <!-- Fonts: Playfair Display (headings), Pinyon Script (decorative), Jost (text) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600&family=Pinyon+Script&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+  <!-- Our one shared stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<!-- 404.html: GitHub Pages shows this page automatically when an address doesn't exist.
+     data-page="" because no menu link should be highlighted. -->
+<body data-page="">
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <div class="layout">
+    <!-- Empty on purpose: js/app.js builds the menu here -->
+    <nav id="sidebar"></nav>
+
+    <main id="main" class="main">
+
+      <header class="page-head">
+        <span class="pill">/404</span>
+        <h1>This page is <span class="script">missing</span></h1>
+        <p class="lead">We couldn’t find this page. Maybe the link has a typo, or the page has moved.</p>
+      </header>
+
+      <div class="row">
+        <a class="btn btn-dark" href="index.html">Go to Home</a>
+        <a class="btn btn-ghost" href="library.html">Open the library</a>
+        <a class="btn btn-ghost" href="episodes.html">See episodes</a>
+      </div>
+
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

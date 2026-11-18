@@ -1,0 +1,123 @@
+[
+  {
+    "id": "ep1",
+    "number": 1,
+    "title": "What did science actually believe was possible in 1818?",
+    "book": "frankenstein",
+    "discipline": "History of Science",
+    "status": "in-production",
+    "youtube": "",
+    "duration": "",
+    "showNotes": {
+      "concept": "Galvanism, early experiments that used electricity to make the muscles of dead animals move.",
+      "technique": "TODO",
+      "echo": "TODO",
+      "synthesis": "TODO: add the final wording of our key idea after we confirm it."
+    },
+    "transcript": "",
+    "resources": [
+      "shelley-1831-introduction",
+      "shelley-1818-text",
+      "aldini-1803",
+      "aldini-1803-scans",
+      "galvani-1791",
+      "galvani-1792-account",
+      "parent-2004",
+      "piccolino-2006",
+      "piccolino-1998",
+      "ure-1818-linda-hall"
+    ],
+    "quizForms": {
+      "before": "TODO: Google Form link (before watching)",
+      "after": "TODO: Google Form link (after watching)"
+    },
+    "quiz": [
+      {
+        "type": "multiple-choice",
+        "question": "What did experiments associated with galvanism demonstrate?",
+        "options": [
+          "Electricity could cause muscles to contract, including in recently dead tissue.",
+          "Electricity could reliably restore a dead person to life.",
+          "Electricity could reveal a person's DNA.",
+          "Electricity could prevent all infectious diseases."
+        ],
+        "answer": 0
+      },
+      {
+        "type": "yes-no",
+        "question": "By 1818, had scientists demonstrated that they could restore a dead human being to life?",
+        "answer": "no"
+      },
+      {
+        "type": "open",
+        "question": "In one or two sentences, explain one possible connection between early nineteenth-century science and the creation of the creature in Frankenstein.",
+        "modelAnswer": "TODO: students write the model answer."
+      }
+    ]
+  },
+  {
+    "id": "ep2",
+    "number": 2,
+    "title": "Can a mind really rewire itself overnight?",
+    "book": "flowers-for-algernon",
+    "discipline": "Neuroscience",
+    "status": "in-production",
+    "youtube": "",
+    "duration": "",
+    "showNotes": {
+      "concept": "TODO",
+      "technique": "TODO",
+      "echo": "TODO",
+      "synthesis": "TODO"
+    },
+    "transcript": "",
+    "resources": [],
+    "quizForms": { "before": "", "after": "" },
+    "quiz": []
+  },
+  {
+    "id": "ep3",
+    "number": 3,
+    "title": "Episode 3",
+    "book": "",
+    "discipline": "TBA",
+    "status": "coming-soon",
+    "youtube": "",
+    "duration": "",
+    "showNotes": { "concept": "", "technique": "", "echo": "", "synthesis": "" },
+    "transcript": "",
+    "resources": [],
+    "quizForms": { "before": "", "after": "" },
+    "quiz": []
+  },
+  {
+    "id": "ep4",
+    "number": 4,
+    "title": "Episode 4",
+    "book": "",
+    "discipline": "TBA",
+    "status": "coming-soon",
+    "youtube": "",
+    "duration": "",
+    "showNotes": { "concept": "", "technique": "", "echo": "", "synthesis": "" },
+    "transcript": "",
+    "resources": [],
+    "quizForms": { "before": "", "after": "" },
+    "quiz": []
+  },
+  {
+    "id": "ep5",
+    "number": 5,
+    "title": "Episode 5",
+    "book": "",
+    "discipline": "TBA",
+    "status": "coming-soon",
+    "youtube": "",
+    "duration": "",
+    "showNotes": { "concept": "", "technique": "", "echo": "", "synthesis": "" },
+    "transcript": "",
+    "resources": [],
+    "quizForms": { "before": "", "after": "" },
+    "quiz": []
+  }
+]
